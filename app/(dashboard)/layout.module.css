@@ -1,0 +1,21 @@
+.layoutContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 260px;
+  padding: 40px;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+    margin-top: 60px;
+    padding: 20px;
+  }
+}

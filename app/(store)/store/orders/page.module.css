@@ -1,0 +1,167 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-premium);
+  backdrop-filter: blur(var(--glass-blur));
+  overflow: hidden;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 16px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.table td {
+  padding: 18px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(99, 102, 241, 0.015);
+}
+
+.paymentBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--border-light);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.statusPending {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--warning-light);
+  color: var(--warning);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.statusConfirmed {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--success-light);
+  color: var(--success);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.statusCancelled {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--danger-light);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.viewBillBtn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--accent-light);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewBillBtn:hover {
+  background: var(--accent);
+  color: var(--text-light);
+}
+
+.pendingNote {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.naNote {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.loading {
+  padding: 100px 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.emptyState {
+  padding: 60px;
+  text-align: center;
+  color: var(--text-tertiary);
+}
+
+.emptyState span {
+  font-size: 50px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.emptyState p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.error {
+  padding: 14px 20px;
+  background: var(--danger-light);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,20 @@
+.storeContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+}
+
+.mainContent {
+  flex: 1;
+  padding: 40px 24px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 20px 16px;
+  }
+}

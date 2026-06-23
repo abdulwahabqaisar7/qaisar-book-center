@@ -1,0 +1,353 @@
+.invoiceWrapper {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.actionPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border: 1px border var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(var(--glass-blur));
+}
+
+.actionGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.backButton {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background: var(--border-light);
+  color: var(--text-primary);
+}
+
+.printButton {
+  padding: 8px 16px;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-light);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.printButton:hover {
+  opacity: 0.9;
+}
+
+.deleteButton {
+  padding: 8px 16px;
+  background: var(--danger-light);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--danger);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deleteButton:hover {
+  background: var(--danger);
+  color: var(--text-light);
+}
+
+/* Printable sheet styling */
+.invoiceSheet {
+  background: var(--bg-secondary);
+  padding: 50px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-premium);
+  min-height: 297mm; /* Standard A4 ratio */
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+}
+
+.shopHeader {
+  text-align: center;
+  border-bottom: 2px dashed var(--border);
+  padding-bottom: 24px;
+  margin-bottom: 30px;
+}
+
+.shopName {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.shopAddress {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.metaSection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.metaCol {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metaLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.metaValueMonospace {
+  font-family: monospace, Courier, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metaValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.customerSection {
+  margin-bottom: 35px;
+  padding: 16px 20px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent);
+}
+
+.sectionTitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.customerName {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.customerContact {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.tableContainer {
+  flex-grow: 1;
+  margin-bottom: 40px;
+}
+
+.invoiceTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoiceTable th {
+  padding: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+}
+
+.invoiceTable td {
+  padding: 14px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.summarySection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 2px solid var(--border);
+  padding-top: 30px;
+  margin-bottom: 40px;
+}
+
+.paymentMethod {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.paymentLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.paymentBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.totalsTable {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.totalsRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.grandTotalRow {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.invoiceFooter {
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+  padding-top: 20px;
+}
+
+.thankYou {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.footerNote {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.errorCard {
+  background: var(--bg-secondary);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  max-width: 500px;
+  margin: 100px auto;
+  border: 1px solid var(--border);
+}
+
+.errorCard h2 {
+  color: var(--danger);
+  margin-bottom: 12px;
+}
+
+.errorCard p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* Print optimizations */
+@media print {
+  .invoiceWrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .invoiceSheet {
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    min-height: auto !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .shopName {
+    color: #000000 !important;
+  }
+
+  .shopAddress {
+    color: #333333 !important;
+  }
+
+  .metaValueMonospace, .metaValue, .customerName, .totalsRow, .grandTotalRow {
+    color: #000000 !important;
+  }
+
+  .customerSection {
+    background: #f5f5f5 !important;
+    border-left: 4px solid #333333 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .paymentBadge {
+    background: #e5e5e5 !important;
+    color: #000000 !important;
+    border: 1px solid #ccc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoiceTable th {
+    border-bottom: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  .invoiceTable td {
+    border-bottom: 1px solid #dddddd !important;
+    color: #000000 !important;
+  }
+}
