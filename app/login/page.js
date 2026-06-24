@@ -105,8 +105,8 @@ export default function LoginPage() {
         </form>
 
         <div className={styles.infoFooter}>
-          <p>Demo Admin: admin / admin101</p>
-          <p>Demo Customer: customer / customer123</p>
+          <p>Demo Admin: admin</p>
+          <p>Demo Customer: customer</p>
         </div>
       </div>
     </div>
