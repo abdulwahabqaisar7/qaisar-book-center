@@ -11,7 +11,7 @@ const CATEGORIES = [
   "Notebooks & Registers",
   "Pens & Writing",
   "Art Supplies",
-  "Novels & Books",
+  "APS Items",
   "Calculators & Geometry",
   "Office Supplies",
   "Other Supplies",
