@@ -185,7 +185,7 @@ export default function AdminOrders() {
                       <td style={{ fontWeight: 600 }}>{o.customerId?.name || "Deleted Customer"}</td>
                       <td>{o.customerId?.phone || "-"}</td>
                       <td>
-                        {o.items.reduce((sum, i) => sum + i.quantity, 0)} items
+                        {o.items.length} items
                       </td>
                       <td style={{ fontWeight: 700 }}>
                         Rs. {o.subtotal.toLocaleString()}
