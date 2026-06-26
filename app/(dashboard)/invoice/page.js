@@ -132,7 +132,7 @@ export default function InvoiceHistory() {
                     <td style={{ fontWeight: 500 }}>{inv.customerName}</td>
                     <td>{inv.customerPhone || "-"}</td>
                     <td>
-                      {inv.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                      {inv.items.length} items
                     </td>
                     <td style={{ fontWeight: 700 }}>
                       Rs. {inv.totalAmount.toLocaleString()}
