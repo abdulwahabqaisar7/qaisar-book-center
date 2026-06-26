@@ -66,6 +66,11 @@ export default function Dashboard() {
 
   const totalInvoicesCount = invoices.length;
 
+  // Total Inventory Value (sum of stock * costPrice for all products)
+  const totalInventoryValue = products.reduce(
+    (sum, product) => sum + (product.stock * (product.costPrice || 0)), 0
+  );
+
   // Format currency
   const formatCurrency = (amount) => {
     return `Rs. ${amount.toLocaleString("en-PK")}`;
@@ -131,6 +136,15 @@ export default function Dashboard() {
           </div>
           <span className={styles.statValue}>{totalInvoicesCount}</span>
           <span className={styles.statSubtext}>All time bills generated</span>
+        </div>
+
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Inventory Value</span>
+            <span className={styles.statIcon} style={{ backgroundColor: "rgba(16, 185, 129, 0.1)", color: "#10b981" }}>💰</span>
+          </div>
+          <span className={styles.statValue}>{formatCurrency(totalInventoryValue)}</span>
+          <span className={styles.statSubtext}>Total capital in stock (qty × cost)</span>
         </div>
       </div>
 
