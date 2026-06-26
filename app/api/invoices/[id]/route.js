@@ -3,6 +3,7 @@ import connectDB from '@/lib/db';
 import Invoice from '@/models/Invoice';
 import Product from '@/models/Product';
 import Customer from '@/models/Customer';
+import CashTransaction from '@/models/CashTransaction';
 
 export async function GET(request, { params }) {
   try {
@@ -48,8 +49,9 @@ export async function DELETE(request, { params }) {
       await Customer.findByIdAndUpdate(invoice.customerId, updateQuery);
     }
 
-    // 3. Delete invoice
+    // 3. Delete invoice and associated cash transaction
     await Invoice.findByIdAndDelete(id);
+    await CashTransaction.deleteOne({ referenceId: id, type: 'sale' });
 
     return NextResponse.json({ success: true, message: 'Invoice deleted and stock restored.' }, { status: 200 });
   } catch (error) {
