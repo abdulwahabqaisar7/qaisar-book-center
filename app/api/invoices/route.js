@@ -3,6 +3,7 @@ import connectDB from '@/lib/db';
 import Invoice from '@/models/Invoice';
 import Product from '@/models/Product';
 import Customer from '@/models/Customer';
+import CashTransaction from '@/models/CashTransaction';
 
 export async function GET() {
   try {
@@ -74,6 +75,18 @@ export async function POST(request) {
       paymentMethod,
       customerId: customerId || null
     });
+
+    // Create Cash Transaction if payment method is Cash
+    if (paymentMethod === 'Cash') {
+      await CashTransaction.create({
+        amount: totalAmount,
+        type: 'sale',
+        referenceId: invoice._id,
+        referenceModel: 'Invoice',
+        description: `Sale Invoice ${invoiceNumber}`,
+        date: invoice.createdAt || new Date()
+      });
+    }
 
     // 4. Update customer ledger stats if customerId is linked
     if (customerId) {
