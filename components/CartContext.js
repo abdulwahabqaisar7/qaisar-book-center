@@ -91,7 +91,7 @@ export function CartProvider({ children }) {
     saveCart([]);
   };
 
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = cart.length;
   const cartTotal = cart.reduce((sum, item) => sum + item.subtotal, 0);
 
   return (
