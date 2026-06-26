@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import BarcodeScanner from "@/components/BarcodeScanner";
 import { useToast } from "@/components/ToastContext";
@@ -29,10 +29,28 @@ export default function NewInvoice() {
   const [selectedProductId, setSelectedProductId] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
+  // Product search state
+  const [productSearch, setProductSearch] = useState("");
+  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+
   // Action status states
   const [saving, setSaving] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+
+  // Ref for click-outside detection on product search
+  const searchWrapperRef = useRef(null);
+
+  const handleClickOutside = useCallback((e) => {
+    if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target)) {
+      setIsProductDropdownOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleClickOutside]);
 
   useEffect(() => {
     async function fetchData() {
@@ -69,6 +87,16 @@ export default function NewInvoice() {
   }, []);
 
   const selectedProduct = products.find((p) => p._id === selectedProductId);
+
+  // Filtered products based on search
+  const filteredProducts = products.filter((p) => {
+    if (!productSearch.trim()) return true;
+    const q = productSearch.toLowerCase();
+    return (
+      p.name.toLowerCase().includes(q) ||
+      p.sku.toLowerCase().includes(q)
+    );
+  });
 
   const handleAddItem = () => {
     if (!selectedProduct) return;
@@ -251,7 +279,7 @@ export default function NewInvoice() {
           <div className={styles.itemSelector}>
             <div className={styles.formGroup}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                <label className={styles.formLabel} style={{ marginBottom: 0 }}>Select Stationery Product</label>
+                <label className={styles.formLabel} style={{ marginBottom: 0 }}>Search & Select Product</label>
                 <button
                   type="button"
                   onClick={() => setIsScannerOpen(true)}
@@ -268,55 +296,87 @@ export default function NewInvoice() {
                 </button>
               </div>
               {products.length === 0 ? (
-                <select disabled className={styles.selectInput}>
-                  <option>No products in stock</option>
-                </select>
+                <div className={styles.formInput} style={{ opacity: 0.5 }}>No products in stock</div>
               ) : (
-                <select
-                  value={selectedProductId}
-                  onChange={(e) => setSelectedProductId(e.target.value)}
-                  className={styles.selectInput}
-                >
-                  {products.map((p) => (
-                    <option key={p._id} value={p._id} disabled={p.stock === 0}>
-                      {p.name} — SKU: {p.sku} (Rs. {p.price.toLocaleString()} | {p.stock} left)
-                    </option>
-                  ))}
-                </select>
+                <div className={styles.searchWrapper} ref={searchWrapperRef}>
+                  <input
+                    type="text"
+                    placeholder="Type to search by name or SKU..."
+                    value={productSearch}
+                    onChange={(e) => {
+                      setProductSearch(e.target.value);
+                      setIsProductDropdownOpen(true);
+                    }}
+                    onFocus={() => setIsProductDropdownOpen(true)}
+                    className={styles.formInput}
+                    style={{ width: '100%' }}
+                  />
+                  {selectedProduct && !isProductDropdownOpen && (
+                    <div className={styles.selectedChip}>
+                      ✅ {selectedProduct.name} — SKU: {selectedProduct.sku} (Rs. {selectedProduct.price.toLocaleString()} | {selectedProduct.stock} left)
+                    </div>
+                  )}
+                  {isProductDropdownOpen && (
+                    <div className={styles.searchDropdown}>
+                      {filteredProducts.length === 0 ? (
+                        <div className={styles.searchDropdownEmpty}>No products match your search.</div>
+                      ) : (
+                        filteredProducts.map((p) => (
+                          <button
+                            key={p._id}
+                            type="button"
+                            disabled={p.stock === 0}
+                            className={`${styles.searchDropdownItem} ${p._id === selectedProductId ? styles.searchDropdownItemActive : ''} ${p.stock === 0 ? styles.searchDropdownItemDisabled : ''}`}
+                            onClick={() => {
+                              setSelectedProductId(p._id);
+                              setProductSearch('');
+                              setIsProductDropdownOpen(false);
+                            }}
+                          >
+                            <span className={styles.searchItemName}>{p.name}</span>
+                            <span className={styles.searchItemMeta}>SKU: {p.sku} · Rs. {p.price.toLocaleString()} · {p.stock === 0 ? 'Out of stock' : `${p.stock} left`}</span>
+                          </button>
+                        ))
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Quantity</label>
-              <input
-                type="number"
-                min="1"
-                max={selectedProduct ? selectedProduct.stock : 1}
-                value={selectedQuantity}
-                onChange={(e) => setSelectedQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                className={styles.formInput}
-              />
-            </div>
+            <div className={styles.itemSelectorRow}>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Quantity</label>
+                <input
+                  type="number"
+                  min="1"
+                  max={selectedProduct ? selectedProduct.stock : 1}
+                  value={selectedQuantity}
+                  onChange={(e) => setSelectedQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  className={styles.formInput}
+                />
+              </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Price</label>
-              <input
-                type="text"
-                disabled
-                value={selectedProduct ? `Rs. ${selectedProduct.price}` : "-"}
-                className={styles.formInput}
-                style={{ backgroundColor: "rgba(0,0,0,0.03)" }}
-              />
-            </div>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Price</label>
+                <input
+                  type="text"
+                  disabled
+                  value={selectedProduct ? `Rs. ${selectedProduct.price}` : "-"}
+                  className={styles.formInput}
+                  style={{ backgroundColor: "rgba(0,0,0,0.03)" }}
+                />
+              </div>
 
-            <button
-              type="button"
-              onClick={handleAddItem}
-              disabled={products.length === 0}
-              className={styles.addButton}
-            >
-              Add Item
-            </button>
+              <button
+                type="button"
+                onClick={handleAddItem}
+                disabled={products.length === 0 || !selectedProduct}
+                className={styles.addButton}
+              >
+                Add Item
+              </button>
+            </div>
           </div>
 
           {/* Items Table */}
