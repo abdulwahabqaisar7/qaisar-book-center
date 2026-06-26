@@ -9,12 +9,12 @@ import styles from "./page.module.css";
 const CATEGORIES = [
   "All Categories",
   "Notebooks & Registers",
-  "Pens & Writing",
-  "Art Supplies",
+  "Paper Sheets",
+  "Glace Papers",
   "APS Items",
   "Calculators & Geometry",
-  "Office Supplies",
-  "Other Supplies",
+  "Envelopes and Rims",
+  "Other Paper Products",
 ];
 
 export default function Inventory() {
