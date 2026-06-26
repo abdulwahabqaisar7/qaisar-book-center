@@ -11,6 +11,25 @@
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   z-index: 100;
   padding: 24px 16px;
+  overflow-y: auto;
+}
+
+/* Custom modern scrollbar for the sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .brand {
