@@ -14,7 +14,7 @@ const CATEGORIES = [
   "APS Items",
   "Calculators & Geometry",
   "Envelopes and Rims",
-  "Paper Boards and Binding Sheets",
+  "Paper Boards and Bindings",
   "Other Paper Products",
 ];
 
