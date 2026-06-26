@@ -7,22 +7,26 @@ import styles from "./page.module.css";
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const [cashInHand, setCashInHand] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [prodRes, invRes] = await Promise.all([
+        const [prodRes, invRes, cashRes] = await Promise.all([
           fetch("/api/products"),
           fetch("/api/invoices"),
+          fetch("/api/cash"),
         ]);
 
         const prodData = await prodRes.json();
         const invData = await invRes.json();
+        const cashData = await cashRes.json();
 
         if (prodData.success) setProducts(prodData.data);
         if (invData.success) setInvoices(invData.data);
+        if (cashData.success) setCashInHand(cashData.data.availableCash);
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
         setError("Failed to load dashboard data. Please try again.");
@@ -109,6 +113,15 @@ export default function Dashboard() {
           </div>
           <span className={styles.statValue}>{formatCurrency(salesToday)}</span>
           <span className={styles.statSubtext}>Based on invoices created today</span>
+        </div>
+
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Cash in Hand</span>
+            <span className={styles.statIcon} style={{ backgroundColor: "rgba(16, 185, 129, 0.1)", color: "#10b981" }}>💵</span>
+          </div>
+          <span className={styles.statValue}>{formatCurrency(cashInHand)}</span>
+          <span className={styles.statSubtext}>Available liquid cash in drawer</span>
         </div>
 
         <div className={styles.statCard}>
