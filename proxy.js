@@ -62,15 +62,20 @@ export async function proxy(request) {
       return NextResponse.redirect(new URL('/', request.url));
     }
   } else if (role === 'customer') {
+    // Allow customers to view individual invoice pages (printable bill)
+    const isInvoiceView = /^\/invoice\/[a-zA-Z0-9]+$/.test(pathname);
+    // Allow customers to fetch individual invoice data via API (GET only)
+    const isInvoiceApi = /^\/api\/invoices\/[a-zA-Z0-9]+$/.test(pathname) && request.method === 'GET';
+
     // Customer trying to access admin dashboard routes or admin api routes
     const isAdminRoute =
       pathname === '/' ||
       pathname === '/inventory' ||
-      pathname.startsWith('/invoice') ||
+      (pathname.startsWith('/invoice') && !isInvoiceView) ||
       pathname.startsWith('/customers') ||
       pathname.startsWith('/reports') ||
       pathname.startsWith('/orders') ||
-      (pathname.startsWith('/api/') && !pathname.startsWith('/api/store') && !pathname.startsWith('/api/auth'));
+      (pathname.startsWith('/api/') && !pathname.startsWith('/api/store') && !pathname.startsWith('/api/auth') && !isInvoiceApi);
 
     if (isAdminRoute) {
       return NextResponse.redirect(new URL('/store', request.url));
