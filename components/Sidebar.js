@@ -18,7 +18,10 @@ export default function Sidebar() {
     { name: "Customers", href: "/customers", icon: "👥" },
     { name: "New Invoice", href: "/invoice/new", icon: "✍️" },
     { name: "Invoice History", href: "/invoice", icon: "🧾" },
+    { name: "New Purchase", href: "/purchases/new", icon: "🛒" },
+    { name: "Purchases", href: "/purchases", icon: "🛍️" },
     { name: "Orders", href: "/orders", icon: "📋" },
+    { name: "Cash Ledger", href: "/cash", icon: "💵" },
     { name: "Reports", href: "/reports", icon: "📈" },
   ];
 
